@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>Search Results</h1>
+  <%= link_to "Back to Books", books_path %>
+</div>
+
+<div class="search-form">
+  <%= form_with url: search_books_path, method: :get, local: true do |f| %>
+    <%= f.text_field :query, placeholder: "Search books...", value: params[:query] %>
+    <%= f.check_box :advanced, checked: params[:advanced] == 'true' %>
+    <%= f.label :advanced, "Advanced search" %>
+    <%= f.submit "Search" %>
+  <% end %>
+</div>
+
+<div class="books-list">
+  <% if @books.any? %>
+    <% @books.each do |book| %>
+      <%= render partial: "book", locals: { book: book } %>
+    <% end %>
+  <% else %>
+    <p>No books found matching your search.</p>
+  <% end %>
+</div>

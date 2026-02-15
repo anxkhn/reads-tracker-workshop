@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>Books</h1>
+  <%= link_to "Add New Book", new_book_path, class: "btn btn-primary" if logged_in? %>
+</div>
+
+<div class="search-form">
+  <%= form_with url: search_books_path, method: :get, local: true do |f| %>
+    <%= f.text_field :query, placeholder: "Search books by title or ISBN...", value: params[:query] %>
+    <%= f.check_box :advanced %>
+    <%= f.label :advanced, "Advanced search" %>
+    <%= f.submit "Search" %>
+  <% end %>
+</div>
+
+<div class="books-list">
+  <% @books.each do |book| %>
+    <%= render partial: "book", locals: { book: book } %>
+  <% end %>
+</div>
+
+<div class="pagination">
+  <% if params[:page].to_i > 0 %>
+    <%= link_to "Previous", books_path(page: params[:page].to_i - 1) %>
+  <% end %>
+  <% if @books_count > (params[:page].to_i + 1) * 10 %>
+    <%= link_to "Next", books_path(page: params[:page].to_i + 1) %>
+  <% end %>
+</div>

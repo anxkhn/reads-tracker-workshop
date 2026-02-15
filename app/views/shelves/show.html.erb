@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1><%= @shelf.name %></h1>
+  <%= link_to "Back to Shelves", shelves_path, class: "btn" %>
+</div>
+
+<div class="shelf-actions">
+  <h2>Add a Book</h2>
+  <%= form_with url: add_book_shelf_path(@shelf), method: :post, local: true do |f| %>
+    <%= f.select :book_id, Book.pluck(:title, :id), prompt: "Select a book" %>
+    <%= f.submit "Add to Shelf", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div class="books-list">
+  <% if @books.any? %>
+    <% @books.each do |book| %>
+      <div class="book-card">
+        <div class="book-info">
+          <h3><%= link_to book.title, book %></h3>
+          <p>by <%= book.author.name %></p>
+        </div>
+        <div class="book-actions">
+          <%= button_to "Remove", remove_book_shelf_path(@shelf, book_id: book.id), method: :delete, class: "btn btn-danger" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>This shelf is empty.</p>
+  <% end %>
+</div>

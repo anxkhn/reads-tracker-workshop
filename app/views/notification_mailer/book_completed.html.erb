@@ -1,0 +1,9 @@
+<h1>Congratulations, <%= @user.name %>!</h1>
+
+<p>You have completed reading "<%= @book.title %>" by <%= @book.author.name %>.</p>
+
+<p>Keep up the great reading habits!</p>
+
+<p>
+  <%= link_to "View Book Details", book_url(@book) %>
+</p>

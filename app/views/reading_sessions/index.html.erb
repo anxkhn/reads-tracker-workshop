@@ -1,0 +1,66 @@
+<div class="page-header">
+  <h1>Reading Sessions</h1>
+</div>
+
+<div class="new-session-form">
+  <h2>Log Reading Session</h2>
+  <%= form_with model: @reading_session, local: true do |f| %>
+    <% if @reading_session.errors.any? %>
+      <div class="errors">
+        <% @reading_session.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :book_id, "Book" %>
+      <%= f.collection_select :book_id, Book.all, :id, :title, prompt: "Select a book" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :pages_read %>
+      <%= f.number_field :pages_read, min: 1 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :duration_minutes, "Duration (minutes)" %>
+      <%= f.number_field :duration_minutes, min: 1 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :date %>
+      <%= f.date_field :date, value: Date.current %>
+    </div>
+
+    <%= f.submit "Log Session", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div class="sessions-list">
+  <h2>Reading History</h2>
+  <% if @reading_sessions.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Pages</th>
+          <th>Duration</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @reading_sessions.each do |session| %>
+          <tr>
+            <td><%= link_to session.book.title, session.book %></td>
+            <td><%= session.pages_read %></td>
+            <td><%= session.duration_minutes %> min</td>
+            <td><%= session.date.strftime("%b %d, %Y") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No reading sessions logged yet.</p>
+  <% end %>
+</div>

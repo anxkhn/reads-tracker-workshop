@@ -1,0 +1,20 @@
+one:
+  user: one
+  book: one
+  pages_read: 50
+  duration_minutes: 60
+  date: 2026-02-15
+
+two:
+  user: one
+  book: two
+  pages_read: 30
+  duration_minutes: 45
+  date: 2026-02-14
+
+three:
+  user: two
+  book: one
+  pages_read: 100
+  duration_minutes: 120
+  date: 2026-02-13

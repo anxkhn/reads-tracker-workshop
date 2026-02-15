@@ -1,0 +1,15 @@
+one:
+  name: Currently Reading
+  user: one
+
+two:
+  name: Want to Read
+  user: one
+
+three:
+  name: Completed
+  user: two
+
+favorites:
+  name: Favorites
+  user: one

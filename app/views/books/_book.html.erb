@@ -1,0 +1,15 @@
+<div class="book-card">
+  <div class="book-cover">
+    <% if book.cover_url.present? %>
+      <img src="<%= book.cover_url %>">
+    <% else %>
+      <div class="no-cover">No Cover</div>
+    <% end %>
+  </div>
+  <div class="book-info">
+    <h3><%= link_to book.title, book %></h3>
+    <p class="author">by <%= book.author.name %></p>
+    <p class="status"><span class="badge <%= book.status %>"><%= book.status.humanize %></span></p>
+    <p class="rating"><%= book.average_rating %> ★</p>
+  </div>
+</div>

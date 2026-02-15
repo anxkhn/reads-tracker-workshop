@@ -1,0 +1,29 @@
+<div class="author-detail">
+  <h1><%= @author.name %></h1>
+
+  <% if @author.bio.present? %>
+    <div class="bio">
+      <%= simple_format(@author.bio) %>
+    </div>
+  <% end %>
+
+  <% if logged_in? %>
+    <div class="author-actions">
+      <%= link_to "Edit", edit_author_path(@author), class: "btn" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="author-books">
+  <h2>Books by <%= @author.name %></h2>
+
+  <% if @books.any? %>
+    <div class="books-list">
+      <% @books.each do |book| %>
+        <%= render partial: "books/book", locals: { book: book } %>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No books by this author yet.</p>
+  <% end %>
+</div>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Reads Tracker Workshop" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Reads Tracker Workshop">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div class="nav-brand">
+          <%= link_to "Reads Tracker", root_path %>
+        </div>
+        <div class="nav-links">
+          <%= link_to "Books", books_path %>
+          <%= link_to "Authors", authors_path %>
+          <% if logged_in? %>
+            <%= link_to "Dashboard", dashboard_path %>
+            <%= link_to "My Shelves", shelves_path %>
+            <%= link_to "Reading Log", reading_sessions_path %>
+            <%= button_to "Logout", logout_path, method: :delete %>
+          <% else %>
+            <%= link_to "Login", login_path %>
+            <%= link_to "Register", register_path %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <% if notice.present? %>
+        <div class="notice"><%= notice %></div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="alert"><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Reads Tracker Workshop - A Goodreads Lite Application</p>
+    </footer>
+  </body>
+</html>

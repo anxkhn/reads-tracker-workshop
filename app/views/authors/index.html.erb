@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h1>Authors</h1>
+  <%= link_to "Add New Author", new_author_path, class: "btn btn-primary" if logged_in? %>
+</div>
+
+<div class="authors-list">
+  <% @authors.each do |author| %>
+    <div class="author-card">
+      <h2><%= link_to author.name, author %></h2>
+      <p class="book-count"><%= pluralize(author.books.count, 'book') %></p>
+      <% if author.bio.present? %>
+        <p class="bio"><%= truncate(author.bio, length: 200) %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

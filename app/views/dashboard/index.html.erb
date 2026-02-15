@@ -1,0 +1,75 @@
+<div class="dashboard">
+  <h1>Dashboard</h1>
+
+  <div class="welcome">
+    <p>Welcome back, <%= current_user.name %>!</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Books Reviewed</h3>
+      <p class="stat-number"><%= @stats[:total_books] %></p>
+    </div>
+    <div class="stat-card">
+      <h3>Pages Read</h3>
+      <p class="stat-number"><%= @stats[:total_pages] %></p>
+    </div>
+    <div class="stat-card">
+      <h3>Reading Time</h3>
+      <p class="stat-number"><%= pluralize(@stats[:total_minutes], 'minute') %></p>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <h2>Library Statistics</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Books</h3>
+        <p class="stat-number"><%= @total_books %></p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Authors</h3>
+        <p class="stat-number"><%= @total_authors %></p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Reviews</h3>
+        <p class="stat-number"><%= @total_reviews %></p>
+      </div>
+    </div>
+
+    <h3>Books by Status</h3>
+    <ul class="status-list">
+      <% @books_by_status.each do |status, count| %>
+        <li><%= status.humanize %>: <%= count %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="recent-sessions">
+    <h2>Recent Reading Sessions</h2>
+    <% if @recent_sessions.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Pages</th>
+            <th>Duration</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_sessions.each do |session| %>
+            <tr>
+              <td><%= link_to session.book.title, session.book %></td>
+              <td><%= session.pages_read %></td>
+              <td><%= session.duration_minutes %> min</td>
+              <td><%= session.date.strftime("%b %d, %Y") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No reading sessions logged yet.</p>
+    <% end %>
+  </div>
+</div>

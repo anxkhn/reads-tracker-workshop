@@ -1,0 +1,17 @@
+one:
+  rating: 5
+  content: This is an excellent book that I really enjoyed reading.
+  user: one
+  book: one
+
+two:
+  rating: 3
+  content: It was an okay book, not great but not bad either.
+  user: two
+  book: one
+
+king_review:
+  rating: 4
+  content: Stephen King at his finest, truly terrifying masterpiece.
+  user: one
+  book: it

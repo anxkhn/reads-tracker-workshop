@@ -1,0 +1,75 @@
+<div class="book-detail">
+  <div class="book-cover">
+    <% if @book.cover_url.present? %>
+      <img src="<%= @book.cover_url %>" alt="Book cover">
+    <% else %>
+      <div class="no-cover">No Cover</div>
+    <% end %>
+  </div>
+
+  <div class="book-info">
+    <h1><%= @book.title %></h1>
+    <p class="author">by <%= link_to @book.author.name, @book.author %></p>
+    <p class="status">Status: <span class="badge <%= @book.status %>"><%= @book.status.humanize %></span></p>
+    <% if @book.isbn.present? %>
+      <p class="isbn">ISBN: <%= @book.isbn %></p>
+    <% end %>
+    <div class="description">
+      <%= simple_format(@book.description) %>
+    </div>
+    <div class="rating">
+      Average Rating: <%= @book.average_rating %> (<%= @book.total_reviews %> reviews)
+    </div>
+
+    <% if logged_in? %>
+      <div class="book-actions">
+        <%= link_to "Edit", edit_book_path(@book), class: "btn" %>
+        <%= button_to "Delete", @book, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="reviews-section">
+  <h2>Reviews</h2>
+
+  <% if logged_in? %>
+    <div class="review-form">
+      <h3>Write a Review</h3>
+      <%= form_with model: [@book, @review], local: true do |f| %>
+        <% if @review.errors.any? %>
+          <div class="errors">
+            <% @review.errors.full_messages.each do |msg| %>
+              <p><%= msg %></p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :rating %>
+          <%= f.select :rating, (1..5).to_a.reverse %>
+        </div>
+
+        <div class="field">
+          <%= f.label :content %>
+          <%= f.text_area :content, rows: 5 %>
+        </div>
+
+        <%= f.submit "Submit Review", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="reviews-list">
+    <% @reviews.each do |review| %>
+      <div class="review">
+        <div class="review-header">
+          <strong><%= review.user.name %></strong>
+          <span class="rating"><%= "★" * review.rating %><%= "☆" * (5 - review.rating) %></span>
+        </div>
+        <p class="review-content"><%= review.content %></p>
+        <p class="review-date"><%= review.created_at.strftime("%B %d, %Y") %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+one:
+  title: Book One
+  isbn: "9780000000001"
+  description: First book description
+  status: 0
+  author: one
+
+two:
+  title: Book Two
+  isbn: "9780000000002"
+  description: Second book description
+  status: 1
+  author: two
+
+it:
+  title: IT
+  isbn: "9780451169513"
+  description: Horror novel about a shape-shifting entity
+  status: 0
+  author: king
+
+untitled:
+  title: ""
+  isbn: "9780000000004"
+  description: Book without title
+  status: 0
+  author: one

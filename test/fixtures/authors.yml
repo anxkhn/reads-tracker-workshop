@@ -1,0 +1,11 @@
+one:
+  name: Author One
+  bio: Author One biography
+
+two:
+  name: Author Two
+  bio: Author Two biography
+
+king:
+  name: Stephen King
+  bio: Master of horror
