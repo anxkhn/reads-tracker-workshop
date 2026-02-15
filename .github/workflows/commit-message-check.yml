@@ -1,0 +1,38 @@
+name: Commit Message Check
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check commit message format
+        run: |
+          # Get the base branch
+          BASE_SHA=$(git merge-base origin/${{ github.base_ref }} HEAD)
+          
+          # Check each commit message
+          for commit in $(git rev-list $BASE_SHA..HEAD); do
+            MESSAGE=$(git log -1 --format=%s $commit)
+            if ! echo "$MESSAGE" | grep -qE '^(feat|fix|docs|style|refactor|test|chore|perf|build|ci|revert)(\(.+\))?!?:\s.+'; then
+              echo "Invalid commit message format: $MESSAGE"
+              echo "Commit messages must follow Conventional Commits format:"
+              echo "  feat: description"
+              echo "  fix: description"
+              echo "  docs: description"
+              echo "  refactor: description"
+              echo "  test: description"
+              echo "  chore: description"
+              echo ""
+              echo "See https://www.conventionalcommits.org/ for more information."
+              exit 1
+            fi
+          done
+          echo "All commit messages are valid."
