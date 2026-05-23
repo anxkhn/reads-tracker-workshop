@@ -80,4 +80,4 @@ This repository contains intentionally seeded bugs for educational purposes. See
 
 ## License
 
-MIT Liscense
+MIT License
